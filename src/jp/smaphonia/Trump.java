@@ -17,7 +17,7 @@ public class Trump {
 	/**
 	 * カードをシャッフルします
 	 */
-	private void shuffle() {
+	public void shuffle() {
 		this.deck = new ArrayDeque<Card>(TOTAL_CARD);
 
 		// 0 - 51までの数字をセットする

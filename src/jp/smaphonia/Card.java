@@ -51,7 +51,7 @@ public class Card {
 	}
 
 	public void setNumber(int number) {
-		this.number = number;
+		this.number = number + 1;
 	}
 	/**
 	 * カードを作成します

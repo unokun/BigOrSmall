@@ -22,11 +22,11 @@ public class Chip {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append(this.getCount());
-		builder.append("(")
+		builder.append("総計： " + this.count)
+			   .append("(")
 			   .append("[10]" + this.count / 10 + "枚")
 			   .append(", ")
-			   .append("[1]" + this.count % 10 + "枚,")
+			   .append("[1]" + this.count % 10 + "枚")
 			  .append(")");
 		return builder.toString();
 	}
