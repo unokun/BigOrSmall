@@ -3,7 +3,9 @@ package jp.smaphonia;
 import java.util.Scanner;
 
 public class Main {
-
+	public static final int MIN_BET = 1;
+	public static final int MAX_BET = 20;
+	
 	/**
 	 * bet枚数を入力する
 	 * @param scanner
@@ -17,8 +19,8 @@ public class Main {
 			System.out.println("BETするチップ数を入力してください(最低1〜20枚)");
 			try {
 				bet = Integer.parseInt(scanner.next());
-				if (bet < 1) { continue; }
-				if (bet > 20) { continue; }
+				if (bet < MIN_BET) { continue; }
+				if (bet > MAX_BET) { continue; }
 //				System.out.println(bet);
 				return bet;
 			} catch (NumberFormatException e) {				
@@ -114,6 +116,12 @@ public class Main {
 			} else {
 				System.out.println("Lose...");
 				chip.lose(bet);
+				
+				if (chip.getCount() == 0) {
+					System.out.println("チップがなくなりました");
+					System.out.println("END");
+					System.exit(0);
+				}
 
 			}
 			

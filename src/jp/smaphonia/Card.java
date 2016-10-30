@@ -50,21 +50,18 @@ public class Card {
 		return number;
 	}
 
-	public void setNumber(int number) {
-		this.number = number + 1;
-	}
 	/**
 	 * カードを作成します
 	 * 
 	 * @param cardType
 	 * @param number
 	 */
-	public Card(Card.Suit cardType, int number) {
+	private Card(Card.Suit cardType, int number) {
 		this.suit = cardType;
 		this.number = number;
 	}
 	/**
-	 * ランダムにカードを作成します
+	 * カードを作成します
 	 * 
 	 * @param random
 	 * @return
@@ -88,7 +85,7 @@ public class Card {
 			builder.append("スペード");
 			break;
 		case HEARTS:
-			builder.append("スペード");
+			builder.append("ハート");
 			break;
 		case DIAMONDS:
 			builder.append("ダイヤ");
@@ -103,7 +100,7 @@ public class Card {
 			builder.append("不明");
 			break;
 		}
-		builder.append(this.number);
+		builder.append(this.number + 1);
 		
 		return builder.toString();
 	}

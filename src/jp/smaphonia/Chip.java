@@ -1,22 +1,25 @@
 package jp.smaphonia;
 
 public class Chip {
-
+	public static final int INIT_COUNT = 100;
 	private int count;
 	
 	public Chip() {
-		this.count = 100;
+		count = INIT_COUNT;
 	}
 	
 	public int getCount() {
-		return this.count;
+		return count;
 	}
 	public void win(int chip) {
-		this.count += chip;
+		count += chip;
 	}
 	
 	public void lose(int chip) {
 		this.count -= chip;
+		if (count < 0) {
+			count = 0;
+		}
 	}
 
 	@Override
