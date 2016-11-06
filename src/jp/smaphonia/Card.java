@@ -1,5 +1,7 @@
 package jp.smaphonia;
 
+import java.io.PrintStream;
+
 /**
  * トランプのカードクラス
  * @author unokun
@@ -116,12 +118,17 @@ public class Card {
 		return builder.toString();
 	}
 	/**
-	 * 数値が大きいか？
+	 * カードが大きいか？
+	 * ・最初に数値で比較する。
+	 * 　数値が大きい場合、trueを返す。
+	 * 　数値が大きい場合、falseを返す。
+	 * ・数値が等しい場合には絵柄で比較する
+	 * 　「スペード」 > 「ハート」 > 「ダイヤ」 > 「クラブ」の順であり、スペードが最も強く、クラブが最も弱い。 
 	 * 
 	 * @param card
 	 * @return
 	 */
-	public boolean isBigger(Card card) {
+	public boolean isBiggerThan(Card card) {
 		// 絵柄が同じ場合は数字で比較する
 		int num1 = this.getNumber();
 		int num2 = card.getNumber();
@@ -130,5 +137,12 @@ public class Card {
 		}
 		return (num1 > num2);
 	}
-
+	public void print(PrintStream ps) {
+		ps.println("test");
+	}
+	
+	public static void main(String[] args) {
+		Card card = Card.createCard(4);
+		card.print(System.out);
+	}
 }

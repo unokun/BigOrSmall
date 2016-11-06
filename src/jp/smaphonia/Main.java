@@ -86,7 +86,7 @@ public class Main {
 			System.out.println("現在のカード：" + card.toString());
 			Card drawn = trump.draw();
 			System.out.println("引いたカード：" + drawn.toString());
-			boolean isBigger = drawn.isBigger(card);
+			boolean isBigger = drawn.isBiggerThan(card);
 			if (isBigger) {
 				System.out.println(card.toString() + "は" + drawn.toString() + "よりSmall");
 				

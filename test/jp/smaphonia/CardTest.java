@@ -2,6 +2,9 @@ package jp.smaphonia;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +55,7 @@ public class CardTest {
 			card2 = Card.createCard(1);
 //			System.out.println("card1: " + card1);
 //			System.out.println("card2: " + card2);
-			assertTrue(card1.isBigger(card2));
+			assertTrue(card1.isBiggerThan(card2));
 			
 			// card1: ダイヤ 13
 			// card2: クラブ 12
@@ -60,7 +63,7 @@ public class CardTest {
 			card2 = Card.createCard(47);
 //			System.out.println("card1: " + card1);
 //			System.out.println("card2: " + card2);
-			assertTrue(card1.isBigger(card2));
+			assertTrue(card1.isBiggerThan(card2));
 			
 			// card1: スペード 8
 			// card2: クラブ 8
@@ -68,12 +71,25 @@ public class CardTest {
 			card2 = Card.createCard(31);
 //			System.out.println("card1: " + card1);
 //			System.out.println("card2: " + card2);
-			assertTrue(card1.isBigger(card2));
+			assertTrue(card1.isBiggerThan(card2));
 		} catch (Exception e) {
 			fail();
 		}
 	}
 	
-
+	@Test
+	public void testPrint() {
+		try {
+			Card card = Card.createCard(4);
+			try (ByteArrayOutputStream bas = new ByteArrayOutputStream(); PrintStream ps = new PrintStream(bas)) {
+				card.print(ps);
+				byte[] bytes = bas.toByteArray();
+				System.out.println(new String(bytes));
+			}
+			
+		} catch (Exception e) {
+			fail();
+		}
+	}
 
 }
