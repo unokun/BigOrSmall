@@ -23,7 +23,7 @@ public class BigOrSmall {
 	 * @param scanner
 	 * @return
 	 */
-	private int getBet(Scanner scanner) {
+	private int getBet(Scanner scanner, int available) {
 		int bet = 0;
 		while (true) {
 			System.out.println("");
@@ -33,6 +33,7 @@ public class BigOrSmall {
 				bet = Integer.parseInt(scanner.next());
 				if (bet < MIN_BET) { continue; }
 				if (bet > MAX_BET) { continue; }
+				if (bet > available) { continue; }
 //				System.out.println(bet);
 				return bet;
 			} catch (NumberFormatException e) {				
@@ -214,34 +215,58 @@ public class BigOrSmall {
 		try (Scanner scanner = new Scanner(getInputStream())) {
 			while (true) {
 				// 表示されているカードがなければカードを引く
-				// ゲーム継続中は、currentCardがセットされている
+				// ※)ゲーム継続中は、currentCardがセットされている
 				if (currentCard == null) {
 					currentCard = trump.draw();
 				}
+				LOGGER.info("currentCard: " + currentCard);
 				printStatus(chip, currentCard);
 				
 				// bet枚数が未設定の場合には、入力してもらう
-				// ゲーム継続中は、betはセットされている
+				// ※)ゲーム継続中は、betはセットされている
+				// 持っているチップを超えては賭けられない
 				if (bet == 0) {
-					bet = getBet(scanner);
+					bet = getBet(scanner, chip.getCount());
 				}
 				
 				// 次のカードが現在のカードより大きいか小さいかを賭ける
 				int choice = getChoice(scanner, currentCard, bet);
 				LOGGER.info("choice: " + choice);
+				
 				// カードを引く
 				Card drawnCard = trump.draw();
+				LOGGER.info("drawn: " + drawnCard);
 				printCard(currentCard, drawnCard);
 				
 				// カードを比較
+				// 勝った場合
+				//   チップを更新する
+				//   勝ったチップを賭けてゲームを継続する？
+				//     継続する場合
+				//       8回継続すると継続できない
+				//       ゲーム続行
+				//     継続しない場合
+				//       新しいゲームとして継続する？
+				//         継続する：カードをシャッフルしてゲーム続行
+				//         継続しない：ゲーム終了
+				// 負けた場合
+				//  チップを更新する(減らす)
+				//  チップの枚数チェック
+				//    0になったらゲーム終了
+				//    0枚より多い場合
+				//       新しいゲームとして継続する？
+				//         継続する：カードをシャッフルしてゲーム続行
+				//         継続しない：ゲーム終了
 				boolean isBigger = compareCard(currentCard, drawnCard);
 				if (isWin(choice, isBigger)) {
 					int won = bet * 2;
 					updateChip(chip, bet);
+					LOGGER.info("win: " + won + " chip = " + chip.getCount());
 					
 					if (consecutiveWin <= 8) {
 						// 勝ったチップを使ってゲームを継続する
 						if (continueGame(scanner, won) == CHOICE_YES) {
+							LOGGER.info("continue the game.");
 							currentCard = drawnCard;
 							bet = won;
 							consecutiveWin += 1;
@@ -252,6 +277,7 @@ public class BigOrSmall {
 				} else {
 					println("Lose...");
 					chip.lose(bet);
+					LOGGER.info("Lose: " + bet + " chip = " + chip.getCount());
 					
 					if (chip.getCount() == 0) {
 						println("チップがなくなりました");
@@ -262,6 +288,8 @@ public class BigOrSmall {
 				
 				// ゲームを継続するかどうか
 				if (isContinueAsNewGame(chip, scanner)) {
+					LOGGER.info("continue as new game.");
+
 					// ゲームの初期化
 					trump.shuffle();
 					currentCard = null;
