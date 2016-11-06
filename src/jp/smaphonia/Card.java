@@ -6,15 +6,38 @@ package jp.smaphonia;
  *
  */
 public class Card {
-	public static int NUM_OF_CARDS = 13;
+	public static final int NUM_OF_CARDS = 13;
+	
+	private static final int SUIT_ID_SPADE = 0;
+	private static final String SUIT_NAME_SPADE = "スペード";
+//	private static final String SUIT_PIC_SPADE = "♠";
+	private static final int SUIT_ID_HEART = 1;
+	private static final String SUIT_NAME_HEART = "ハート";
+//	private static final String SUIT_PIC_HEART = "♡";
+	private static final int SUIT_ID_DIAMOND = 2;
+	private static final String SUIT_NAME_DIAMOND = "ダイヤ";
+//	private static final String SUIT_PIC_DIAOND = "♢";
+	private static final int SUIT_ID_CLUB = 3;
+	private static final String SUIT_NAME_CLUB = "クラブ";
+//	private static final String SUIT_PIC_CLUB = "♣";
+	private static final int SUIT_ID_JOKER = 4;
+	private static final String SUIT_NAME_JOKER = "ジョーカー";
+//	private static final String SUIT_PIC_JOKER = "";
+	private static final int SUIT_ID_UNKNOWN = 5;
+	private static final String SUIT_NAME_UNKNOWN = "不明";
+//	private static final String SUIT_PIC_UNKNOWN = "";
 	
 	// http://qiita.com/KeithYokoma/items/9681b130ea132cfad64d
 	public enum Suit {
-		SPADES(0), HEARTS(1), DIAMONDS(2), CLUBS(3), JOKER(4), UNKNOWN(5); 
+		SPADES(SUIT_ID_SPADE, SUIT_NAME_SPADE), HEARTS(SUIT_ID_HEART, SUIT_NAME_HEART), DIAMONDS(SUIT_ID_DIAMOND, SUIT_NAME_DIAMOND),
+		CLUBS(SUIT_ID_CLUB, SUIT_NAME_CLUB), JOKER(SUIT_ID_JOKER, SUIT_NAME_JOKER), UNKNOWN(SUIT_ID_UNKNOWN, SUIT_NAME_UNKNOWN); 
 		
 		private final int id;
-		private Suit(int id) {
+		private final String name;
+		
+		private Suit(int id, String name) {
 			this.id = id;
+			this.name= name;
 		}
 	    public static Suit valueOf(int id) {
 	        for (Suit suit : values()) {
@@ -29,6 +52,9 @@ public class Card {
 	    }
 		public int getId() {
 			return this.id;
+		}
+		public String getName() {
+			return name;
 		}
 	}
 	
@@ -50,6 +76,10 @@ public class Card {
 		return number;
 	}
 
+	private Card() {
+		
+	}
+	
 	/**
 	 * カードを作成します
 	 * 
@@ -63,8 +93,9 @@ public class Card {
 	/**
 	 * カードを作成します
 	 * 
-	 * @param random
-	 * @return
+	 * @param value 0...52の値
+	 * 
+	 * @return　カードクラス
 	 */
 	public static Card createCard(int value) {
 		int suits = value % 4;
@@ -80,28 +111,8 @@ public class Card {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		switch (this.suit) {
-		case SPADES:
-			builder.append("スペード");
-			break;
-		case HEARTS:
-			builder.append("ハート");
-			break;
-		case DIAMONDS:
-			builder.append("ダイヤ");
-			break;
-		case CLUBS:
-			builder.append("クラブ");
-			break;
-		case JOKER:
-			builder.append("ジョーカー");
-			break;
-		case UNKNOWN:
-			builder.append("不明");
-			break;
-		}
+		builder.append(suit.getName());
 		builder.append(this.number + 1);
-		
 		return builder.toString();
 	}
 	/**

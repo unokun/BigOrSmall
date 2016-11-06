@@ -21,34 +21,21 @@ public class CardTest {
 		try {
 			for (int i = 0; i <= Card.NUM_OF_CARDS * 4; i++) {
 				Card card = Card.createCard(i);
-				String s = card.toString();
 				assertEquals((i / 4), card.getNumber());
 				assertEquals((i % 4), card.getCardSuit().getId());
-				
-				StringBuilder builder = new StringBuilder();
-				switch (card.getCardSuit()) {
-				case SPADES:
-					builder.append("スペード");
-					break;
-				case HEARTS:
-					builder.append("ハート");
-					break;
-				case DIAMONDS:
-					builder.append("ダイヤ");
-					break;
-				case CLUBS:
-					builder.append("クラブ");
-					break;
-				case UNKNOWN:
-					break;
-				default:
-				}
-				builder.append(i / 4 + 1);
-				assertEquals(builder.toString(), s);
+
+				String actual = card.toString();
+				assertEquals(getCardInfo(card), actual);
 			}
 		} catch (Exception e) {
 			fail();
 		}
+	}
+	private String getCardInfo(Card card) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(card.getCardSuit().getName());
+		builder.append(card.getNumber() + 1);
+		return builder.toString();
 	}
 	/**
 	 * 数値が大きい場合
@@ -79,12 +66,14 @@ public class CardTest {
 			// card2: クラブ 8
 			card1 = Card.createCard(28);
 			card2 = Card.createCard(31);
-			System.out.println("card1: " + card1);
-			System.out.println("card2: " + card2);
+//			System.out.println("card1: " + card1);
+//			System.out.println("card2: " + card2);
 			assertTrue(card1.isBigger(card2));
 		} catch (Exception e) {
 			fail();
 		}
 	}
+	
+
 
 }

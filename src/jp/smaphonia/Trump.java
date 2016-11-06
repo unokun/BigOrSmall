@@ -19,7 +19,7 @@ public class Trump {
 	 */
 	public void shuffle() {
 		this.deck = new ArrayDeque<Card>(TOTAL_CARD);
-
+		
 		// 0 - 51までの数字をセットする
 		int[] cards = new int[TOTAL_CARD];
 		for (int i = 0; i < TOTAL_CARD; i++) {
