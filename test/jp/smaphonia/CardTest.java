@@ -2,8 +2,11 @@ package jp.smaphonia;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 
 import org.junit.After;
 import org.junit.Before;
@@ -91,5 +94,36 @@ public class CardTest {
 			fail();
 		}
 	}
+	
+	@Test
+	public void testScanner() {
+		try {
+			try (InputStream in = new ByteArrayInputStream("test".getBytes()); Scanner scanner = new Scanner(in)) {
+				String input = scanner.next();
+				System.out.println(input);
+			}
+			
+		} catch (Exception e) {
+			fail();
+		}
+	}
+//	public void aaa() {
+//		// ディラーがゲームの初期化をします
+//		
+//		// 1. ディラーがカードを一枚配ります
+//		// 配ったカードに対して、プレーヤーが掛け金を設定します
+//		// ディラーが結果を判定します
+//		// 負けた場合
+//		//   1に進む
+//		
+//		// 勝った場合
+//		//  ダブルアップするかどうか聞きます
+//		//  ダブルアップする場合
+//		//   　カードを配ります。
+//		//　　　掛け金を設定します
+//		//     結果を判定します
+//		//　ダブルアップしない場合
+//		
+//	}
 
 }
