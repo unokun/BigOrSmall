@@ -60,7 +60,7 @@ public class Trump {
 	public Card draw() {
 		return this.deck.pop();
 	}
-	public int restOfDeck() {
+	public int countDeck() {
 		return this.deck.size();
 	}
 	public static void main(String[] args) {
@@ -68,7 +68,7 @@ public class Trump {
 		for (int i = 0; i < 5; i++) {
 			Card card = trump.draw();
 			System.out.println(card.toString());
-			System.out.println("残り： " + trump.restOfDeck());
+			System.out.println("残り： " + trump.countDeck());
 			
 		}
 	}

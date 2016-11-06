@@ -23,10 +23,10 @@ public class TrumpTest {
 	public void testTrump() {
 		try {
 			// 最初はカードの枚数は52枚。
-			assertEquals(Trump.TOTAL_CARD, trump.restOfDeck());
+			assertEquals(Trump.TOTAL_CARD, trump.countDeck());
 			Card card = trump.draw();
 			// カードを引くと残り枚数が1枚少なくなっていること
-			assertEquals(Trump.TOTAL_CARD - 1, trump.restOfDeck());
+			assertEquals(Trump.TOTAL_CARD - 1, trump.countDeck());
 
 			// 引いたカードの値(範囲)チェック
 			int number = card.getNumber();
