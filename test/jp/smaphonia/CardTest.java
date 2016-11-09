@@ -11,6 +11,8 @@ import java.util.Scanner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import static org.assertj.core.api.Assertions.*;
+
 
 public class CardTest {
 
@@ -31,7 +33,8 @@ public class CardTest {
 				assertEquals((i % 4), card.getCardSuit().getId());
 
 				String actual = card.toString();
-				assertEquals(getCardInfo(card), actual);
+//				assertEquals(getCardInfo(card), actual);
+				assertThat(actual).isEqualTo(getCardInfo(card));
 			}
 		} catch (Exception e) {
 			fail();
@@ -58,15 +61,16 @@ public class CardTest {
 			card2 = Card.createCard(1);
 //			System.out.println("card1: " + card1);
 //			System.out.println("card2: " + card2);
-			assertTrue(card1.isBiggerThan(card2));
-			
+//			assertTrue(card1.isBiggerThan(card2));
+			assertThat(card1.isBiggerThan(card2)).isTrue();
 			// card1: ダイヤ 13
 			// card2: クラブ 12
 			card1 = Card.createCard(50);
 			card2 = Card.createCard(47);
 //			System.out.println("card1: " + card1);
 //			System.out.println("card2: " + card2);
-			assertTrue(card1.isBiggerThan(card2));
+//			assertTrue(card1.isBiggerThan(card2));
+			assertThat(card1.isBiggerThan(card2)).isTrue();
 			
 			// card1: スペード 8
 			// card2: クラブ 8
@@ -74,7 +78,8 @@ public class CardTest {
 			card2 = Card.createCard(31);
 //			System.out.println("card1: " + card1);
 //			System.out.println("card2: " + card2);
-			assertTrue(card1.isBiggerThan(card2));
+//			assertTrue(card1.isBiggerThan(card2));
+			assertThat(card1.isBiggerThan(card2)).isTrue();
 		} catch (Exception e) {
 			fail();
 		}

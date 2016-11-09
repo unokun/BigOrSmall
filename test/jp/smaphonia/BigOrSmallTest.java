@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 
+import static org.assertj.core.api.Assertions.*;
 
 public class BigOrSmallTest {
 
@@ -37,7 +38,8 @@ public class BigOrSmallTest {
 				Card currentCard = Card.createCard(4);
 				int choice = game.getChoice(scanner, currentCard, 1);
 				
-				assertEquals(BigOrSmall.CHOICE_BIG, choice);
+//				assertEquals(BigOrSmall.CHOICE_BIG, choice);
+				assertThat(choice).isEqualTo(BigOrSmall.CHOICE_BIG);
 			}
 		} catch (Exception e) {
 			fail();
@@ -53,7 +55,8 @@ public class BigOrSmallTest {
 				Card currentCard = Card.createCard(4);
 				int choice = game.getChoice(scanner, currentCard, 1);
 				
-				assertEquals(BigOrSmall.CHOICE_SMALL, choice);
+//				assertEquals(BigOrSmall.CHOICE_SMALL, choice);
+				assertThat(choice).isEqualTo(BigOrSmall.CHOICE_SMALL);
 			}
 		} catch (Exception e) {
 			fail();
@@ -69,7 +72,8 @@ public class BigOrSmallTest {
 				String message = "test";
 				game.print(message);
 				
-				assertEquals(message, new String(bas.toByteArray()));
+//				assertEquals(message, new String(bas.toByteArray()));
+				assertThat(new String(bas.toByteArray())).isEqualTo(message);
 			}
 
 		} catch (Exception e) {
